@@ -1,0 +1,14 @@
+.venv/
+frontend/
+ADMIN_SERVICE/
+STUDENT_SERVICE/
+__pycache__/
+*.pyc
+FACULTY_SERVICE/
+EUREKHA_SERVER/
+API_GATEWAY/
+istio-1.22.0/
+istio.zip
+password.txt
+kubectl
+downloadIstio.ps1

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: autoscaler
+  namespace: microservices
+  labels:
+    app: autoscaler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: autoscaler
+  template:
+    metadata:
+      labels:
+        app: autoscaler
+        sidecar.istio.io/inject: "false"
+    spec:
+      serviceAccountName: autoscaler
+      containers:
+        - name: autoscaler
+          image: harshareddy2024/autoscaler:latest  # Update with your image
+          env:
+            - name: LATENCY_THRESHOLD_MS
+              value: "300"
+            - name: CPU_THRESHOLD
+              value: "0.7"
+            - name: RPS_THRESHOLD
+              value: "200"
+            - name: SCALE_OUT_FACTOR
+              value: "0.2"
+            - name: SCALE_IN_FACTOR
+              value: "0.15"
+            - name: MIN_REPLICAS
+              value: "2"
+            - name: MAX_REPLICAS
+              value: "50"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+

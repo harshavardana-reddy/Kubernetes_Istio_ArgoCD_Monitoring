@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: microservices
+  labels:
+    app: api-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: api-gateway
+          image: harshareddy2024/api-gateway:latest
+          ports:
+            - containerPort: 4000
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "kubernetes"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: api-gateway-config

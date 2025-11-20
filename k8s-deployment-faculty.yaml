@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: faculty-service
+  namespace: microservices
+  labels:
+    app: faculty-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: faculty-service
+  template:
+    metadata:
+      labels:
+        app: faculty-service
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: faculty-service
+          image: harshareddy2024/faculty-service:latest
+          ports:
+            - containerPort: 4002
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "kubernetes"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: faculty-service-config

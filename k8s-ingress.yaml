@@ -1,0 +1,73 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microservices-ingress
+  namespace: microservices
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: microservices.local
+      http:
+        paths:
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 4001
+          - path: /faculty
+            pathType: Prefix
+            backend:
+              service:
+                name: faculty-service
+                port:
+                  number: 4002
+          - path: /student
+            pathType: Prefix
+            backend:
+              service:
+                name: student-service
+                port:
+                  number: 4003
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 4000
+    - http:
+        paths:
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 4001
+          - path: /faculty
+            pathType: Prefix
+            backend:
+              service:
+                name: faculty-service
+                port:
+                  number: 4002
+          - path: /student
+            pathType: Prefix
+            backend:
+              service:
+                name: student-service
+                port:
+                  number: 4003
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 4000

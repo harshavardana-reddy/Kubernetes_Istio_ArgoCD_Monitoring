@@ -1,0 +1,48 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: microservices-vs
+  namespace: microservices
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - microservices-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/api/admin"
+      route:
+        - destination:
+            host: admin-service
+            port:
+              number: 4001
+          weight: 100
+    - match:
+        - uri:
+            prefix: "/api/faculty"
+      route:
+        - destination:
+            host: faculty-service
+            port:
+              number: 4002
+          weight: 100
+    - match:
+        - uri:
+            prefix: "/api/student"
+      route:
+        - destination:
+            host: student-service
+            port:
+              number: 4003
+          weight: 100
+    - match:
+        - uri:
+            prefix: "/"
+      route:
+        - destination:
+            host: api-gateway
+            port:
+              number: 4000
+          weight: 100
+

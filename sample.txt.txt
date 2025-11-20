@@ -1,0 +1,8 @@
+kubectl logs admin-service-5446c99d7d-rq6ff -n microservices
+kubectl logs admin-service-5446c99d7d-tc5tk -n microservices
+kubectl logs api-gateway-d4ff6887f-cr8qw -n microservices
+kubectl logs api-gateway-d4ff6887f-qvvh6 -n microservices
+kubectl logs faculty-service-865776c97f-6hgbg -n microservices
+kubectl logs faculty-service-865776c97f-6pt6d -n microservices
+kubectl logs student-service-6449d7df7b-45rkv -n microservices
+kubectl logs student-service-6449d7df7b-nfdbc -n microservices

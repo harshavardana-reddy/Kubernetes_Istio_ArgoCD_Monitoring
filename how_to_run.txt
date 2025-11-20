@@ -1,0 +1,10 @@
+Initial check your kubernetes, ingress and minikube is installed in your machine.
+1.)First Run deploy-k8s.sh
+2.)All pods will be deployed to kubernetes.
+3.)Use Ingress gateway IP to access the API-gateway.
+
+To delete deployements:
+Run cleanup-k8s.sh
+
+kubectl get pods -n microservices -o name 
+kubectl get pods -n microservices -o name | xargs -n 1 kubectl describe -n microservices

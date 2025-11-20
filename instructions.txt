@@ -1,0 +1,2 @@
+Deploy the Admin,faculty,api-gateway,student-service the api-gateway should be accessed externally on Kubernetes.
+The Eureka server is running on https://microservices-eureka-registry.onrender.com/
