@@ -12,9 +12,7 @@ spec:
     directory:
       recurse: true
       include: "*.yaml"
-      exclude:
-        - "argocd/**"
-        - "k8s-ingress.yaml"
+      exclude: "argocd/**,k8s-ingress.yaml"
   destination:
     server: https://kubernetes.default.svc
     namespace: microservices
@@ -30,4 +28,3 @@ spec:
         duration: 5s
         factor: 2
         maxDuration: 3m
-
