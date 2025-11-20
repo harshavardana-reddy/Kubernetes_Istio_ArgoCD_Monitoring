@@ -92,6 +92,7 @@ echo -e "${GREEN}✓ Microservices deployed${NC}"
 # Step 7: Deploy Autoscaler RBAC
 echo -e "\n${YELLOW}Step 7: Deploying Autoscaler RBAC...${NC}"
 kubectl apply -f k8s-serviceaccount-autoscaler.yaml
+kubectl apply -f autoscaler-rbac.yaml
 echo -e "${GREEN}✓ Autoscaler RBAC deployed${NC}"
 
 # Step 8: Deploy Autoscaler
