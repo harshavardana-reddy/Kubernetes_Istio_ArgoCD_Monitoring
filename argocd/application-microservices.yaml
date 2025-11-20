@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/harshavardana-reddy/Kubernetes-Istio-ArgoCD-Autoscaler.git  # Update with your repo URL
+    repoURL: https://github.com/harshavardana-reddy/Kubernetes_Istio_ArgoCD_Monitoring.git  # Update with your repo URL
     targetRevision: main
     path: ./
     directory:
