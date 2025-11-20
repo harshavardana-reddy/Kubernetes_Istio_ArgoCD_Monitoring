@@ -43,7 +43,7 @@ echo -e "${GREEN}✓ Istio configurations deleted${NC}"
 echo -e "\n${YELLOW}Step 3: Deleting Autoscaler...${NC}"
 kubectl delete -f k8s-deployment-autoscaler.yaml 2>/dev/null || true
 kubectl delete -f k8s-serviceaccount-autoscaler.yaml 2>/dev/null || true
-kubectl apply -f autoscaler-rbac.yaml 2>/dev/null || true
+kubectl delete -f autoscaler-rbac.yaml 2>/dev/null || true
 echo -e "${GREEN}✓ Autoscaler deleted${NC}"
 
 # Step 4: Delete NodePort Services
