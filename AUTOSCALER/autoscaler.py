@@ -27,7 +27,7 @@ class MicroserviceAutoscaler:
         """Get current latency, CPU usage, and RPS from Prometheus"""
         try:
             # Get p95 latency
-            latency_query = f'histogram_quantile(0.95, sum(rate(istio_request_duration_seconds_bucket{{destination_service=~"{service_name}.*"}}[1m])) by (le))'
+            latency_query = f'histogram_quantile(0.95, sum(rate(istio_request_duration_milliseconds_bucket{{destination_service=~"{service_name}.*"}}[1m])) by (le))'
             latency_result = self.prom.custom_query(latency_query)
             current_latency = float(latency_result[0]['value'][1]) if latency_result else 0
             
