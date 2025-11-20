@@ -93,6 +93,8 @@ data:
             regex: ([^:]+)(?::\d+)?;(\d+)
             replacement: $1:15090
             target_label: __address__
+          - target_label: __metrics_path__
+            replacement: /stats/prometheus
           - action: labelmap
             regex: __meta_kubernetes_pod_label_(.+)
           - source_labels: [__meta_kubernetes_namespace]
