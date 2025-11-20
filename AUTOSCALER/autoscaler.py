@@ -14,6 +14,7 @@ class MicroserviceAutoscaler:
         self.scale_out_factor = float(os.getenv("SCALE_OUT_FACTOR", 0.2))
         self.scale_in_factor = float(os.getenv("SCALE_IN_FACTOR", 0.15))
         self.min_replicas = int(os.getenv("MIN_REPLICAS", 2))
+        self.target_namespace = os.getenv("TARGET_NAMESPACE", "microservices")
         
         # Initialize Kubernetes client
         config.load_incluster_config()
@@ -46,9 +47,10 @@ class MicroserviceAutoscaler:
             print(f"Error getting metrics from Prometheus: {e}")
             return 0, 0, 0
     
-    def get_current_replicas(self, deployment_name: str, namespace: str = "default") -> int:
+    def get_current_replicas(self, deployment_name: str, namespace: str = None) -> int:
         """Get current replica count for a deployment"""
         try:
+            namespace = namespace or self.target_namespace
             deployment = self.apps_v1.read_namespaced_deployment(
                 name=deployment_name,
                 namespace=namespace
@@ -58,9 +60,10 @@ class MicroserviceAutoscaler:
             print(f"Error getting current replicas: {e}")
             return 0
     
-    def scale_deployment(self, deployment_name: str, replicas: int, namespace: str = "default") -> bool:
+    def scale_deployment(self, deployment_name: str, replicas: int, namespace: str = None) -> bool:
         """Scale a deployment to the specified number of replicas"""
         try:
+            namespace = namespace or self.target_namespace
             # Get current deployment
             deployment = self.apps_v1.read_namespaced_deployment(
                 name=deployment_name,

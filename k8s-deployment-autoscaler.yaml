@@ -35,6 +35,10 @@ spec:
               value: "2"
             - name: MAX_REPLICAS
               value: "50"
+            - name: TARGET_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           resources:
             requests:
               memory: "256Mi"
